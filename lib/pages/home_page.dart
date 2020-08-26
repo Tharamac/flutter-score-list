@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:score_list/widget/score_view.dart';
+
+
+
+  
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -12,14 +16,21 @@ class HomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String title;
+
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
+
+  var scoreData = {
+    "Issei" : 35,
+    "Tanya" : 45,
+    "Miyawaki Sakura": 75,
+    "Naruhodou Ryuichi": 61
+  };
+   
 
   void _incrementCounter() {
     setState(() {
@@ -28,7 +39,7 @@ class _HomePageState extends State<HomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
+
     });
   }
 
@@ -44,7 +55,15 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        backgroundColor: Colors.white,
+        title: Text(
+          "Hall of Fame",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 50,
+            fontWeight: FontWeight.w700
+          ),
+        ),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -65,15 +84,7 @@ class _HomePageState extends State<HomePage> {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+          children: scoreData.entries.map((person) => ScoreView(name: person.key, score: person.value)).toList()
         ),
       ),
       floatingActionButton: FloatingActionButton(

@@ -4,6 +4,8 @@ import 'pages/edit_score_page.dart';
 import 'pages/home_page.dart';
 import 'pages/personal_data_page.dart';
 
+ // Sept 23rd , create tag part2 before 5pm
+
 void main() {
   runApp(MyApp());
 }
@@ -13,14 +15,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Hall of Fame',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         
       ),
-      home: HomePage(title: 'Welcome to Hall of Fame'),
       routes: {
         AppRoutes.home : (context) => HomePage(),
         AppRoutes.personalDataPage : (context) =>  PersonalDataPage(),
