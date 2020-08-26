@@ -7,37 +7,39 @@ class ScoreView extends StatelessWidget {
   ScoreView({this.number = 0, this.name, this.score});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xFF65AA0D),
-      padding: EdgeInsets.all(20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Text(
-            "$number\t",
-            style:  TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w700
-            ),
-          ),
-          Expanded(
-            child:  Text(
-              name,
-              style: TextStyle(
+    return GestureDetector(
+      child: Container(
+        color: const Color(0xFF65AA0D),
+        padding: EdgeInsets.all(20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              "$number\t",
+              style:  TextStyle(
                 fontSize: 30,
-                fontWeight: FontWeight.w600
+                fontWeight: FontWeight.w700
               ),
             ),
-          ),
-          Text(
-            '$score',
-            style:  TextStyle(
-              fontSize: 60,
-              fontWeight: FontWeight.w700
+            Expanded(
+              child:  Text(
+                name,
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w600
+                ),
+              ),
             ),
-          )
-        ],
-      ),
+            Text(
+              '$score',
+              style:  TextStyle(
+                fontSize: 60,
+                fontWeight: FontWeight.w700
+              ),
+            )
+          ],
+        ),
+      )
     );
   }
  
