@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 
-// class personalDataParam{
-//   final String title;
-//   final String text;
-//   final List scoreData
-//   const personalDataParam()
-// }
+import '../score.dart';
+
+class PersonalDataParameter {
+  final ScoreData selectedData;
+  final List<ScoreData> dataList;
+  List<ScoreData> dataListSorted;
+  PersonalDataParameter(this.selectedData, this.dataList) {
+    dataListSorted = List.from(dataList);
+    dataListSorted.sort((a, b) => a.score.compareTo(b.score));
+  }
+}
 // send list to another page
 
 class PersonalDataPage extends StatefulWidget {
+  final ScoreData selectedData;
+  final List<ScoreData> dataList;
+  PersonalDataPage(this.selectedData, this.dataList);
+
   @override
   _PersonalDataPageState createState() => _PersonalDataPageState();
 }
@@ -16,8 +25,36 @@ class PersonalDataPage extends StatefulWidget {
 class _PersonalDataPageState extends State<PersonalDataPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
-    );
+    return Scaffold(
+        appBar: AppBar(),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Container(
+              color: const Color(0xFF65AA0D),
+              padding: EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    "${widget.selectedData.id}\t",
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
+                  ),
+                  Expanded(
+                    child: Text(
+                      widget.selectedData.name,
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  Text(
+                    '${widget.selectedData.score}',
+                    style: TextStyle(fontSize: 60, fontWeight: FontWeight.w700),
+                  )
+                ],
+              ),
+            )
+          ],
+        ));
   }
 }

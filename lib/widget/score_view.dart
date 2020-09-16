@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:score_list/score.dart';
+
+import '../config/routes.dart';
+import '../pages/personal_data_page.dart';
 
 class ScoreView extends StatelessWidget {
-  final int number;
-  final String name;
-  final int score;
-  ScoreView({this.number = 0, this.name, this.score});
+  final int idx;
+  final List<ScoreData> wholeList;
+  ScoreView({this.idx, this.wholeList});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -15,36 +18,28 @@ class ScoreView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              "$number\t",
-              style:  TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w700
-              ),
+              "${wholeList[idx].id}",
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
             ),
             Expanded(
-              child:  Text(
-                name,
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w600
-                ),
+              child: Text(
+                wholeList[idx].name,
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
               ),
             ),
             Text(
-              '$score',
-              style:  TextStyle(
-                fontSize: 60,
-                fontWeight: FontWeight.w700
-              ),
+              '${wholeList[idx].score}',
+              style: TextStyle(fontSize: 60, fontWeight: FontWeight.w700),
             )
           ],
         ),
-      )
+      ),
+      onTap: () => Navigator.of(context).pushNamed(AppRoutes.personalDataPage,
+          arguments: PersonalDataParameter(wholeList[idx], wholeList)),
     );
   }
- 
 }
 
 // class _ScoreViewState extends State<ScoreView> {
-  
+
 // }

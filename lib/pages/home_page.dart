@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:score_list/score.dart';
 import 'package:score_list/widget/score_view.dart';
 
-
-
-  
-
 class HomePage extends StatefulWidget {
-
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
   // how it looks.
@@ -16,33 +12,23 @@ class HomePage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-
-
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-
-  var scoreData = {
-
-    "Issei" : 35,
-    "Tanya" : 45,
-    "Miyawaki Sakura": 75,
-    "Naruhodou Ryuichi": 61
-    
-    };
-   
+  List<ScoreData> scoreList = [
+    ScoreData(1, "Rimuru Tempest", 95),
+    ScoreData(2, "Benimaru", 15),
+    ScoreData(3, "Milim", 59),
+    ScoreData(4, "Veldora Tempest", 97),
+    ScoreData(5, "Isset Hyoudo", 41),
+    ScoreData(6, "Tanya", 52),
+    ScoreData(7, "Naruhodou Ryuichi", 72),
+  ];
 
   void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-
-    });
+    setState(() {});
   }
 
   @override
@@ -61,19 +47,21 @@ class _HomePageState extends State<HomePage> {
         title: Text(
           "Hall of Fame",
           style: TextStyle(
-            color: Colors.black,
-            fontSize: 50,
-            fontWeight: FontWeight.w700
-          ),
+              color: Colors.black, fontSize: 50, fontWeight: FontWeight.w700),
         ),
       ),
       body: Center(
-      
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: scoreData.entries.map((person) => ScoreView(name: person.key, score: person.value)).toList()
+        child: ListView.builder(
+          scrollDirection: Axis.vertical,
+          itemCount: scoreList.length,
+          itemBuilder: (BuildContext context, int i) {
+            return ScoreView(
+              wholeList: scoreList,
+              idx: i,
+            );
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(
