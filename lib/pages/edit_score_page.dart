@@ -12,6 +12,7 @@ class EditScorePage extends StatefulWidget {
 
 class _EditScorePageState extends State<EditScorePage> {
   TextEditingController _controller;
+  bool _validate = false;
   var numpadItem = [
     "1",
     "2",
@@ -59,8 +60,11 @@ class _EditScorePageState extends State<EditScorePage> {
   void acceptScore() {
     int score = _scoreInput;
     String name = _controller.text;
-    print(name);
-    print(score);
+    int idx = scoreList.length + 1;
+    print("55");
+    var newScore = ScoreData(idx, name, score);
+    scoreList.add(newScore);
+    Navigator.pop(context, true);
   }
 
   @override
@@ -89,6 +93,8 @@ class _EditScorePageState extends State<EditScorePage> {
                           style: TextStyle(fontSize: 20),
                           decoration: InputDecoration(
                             labelText: 'Enter Your Name',
+                            errorText:
+                                _validate ? "Value cannot be empty." : null,
                           )))
                 ],
               ),
@@ -116,7 +122,12 @@ class _EditScorePageState extends State<EditScorePage> {
                                 if (item == "CLR")
                                   _putNumber(-1);
                                 else if (item == "OK") {
-                                  acceptScore();
+                                  setState(() {
+                                    _controller.text.isEmpty
+                                        ? _validate = true
+                                        : _validate = false;
+                                  });
+                                  if (_validate == false) acceptScore();
                                 } else
                                   _putNumber(int.parse(item));
                               },

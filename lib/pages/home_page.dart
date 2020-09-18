@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:score_list/config/routes.dart';
+import 'package:score_list/pages/edit_score_page.dart';
 import 'package:score_list/score.dart';
 import 'package:score_list/widget/score_view.dart';
 
@@ -17,11 +19,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  void _incrementCounter() {
-    setState(() {});
-  }
-
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -56,7 +54,11 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () =>
-            Navigator.of(context).pushNamed(AppRoutes.editScorePage),
+            Navigator.pushNamed(context, AppRoutes.editScorePage).then((flag) {
+          if (flag) {
+            setState(() {});
+          }
+        }),
         tooltip: 'Add New Record',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
