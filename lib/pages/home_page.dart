@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:score_list/config/routes.dart';
 import 'package:score_list/score.dart';
 import 'package:score_list/widget/score_view.dart';
 
@@ -17,16 +18,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<ScoreData> scoreList = [
-    ScoreData(1, "Rimuru Tempest", 95),
-    ScoreData(2, "Benimaru", 15),
-    ScoreData(3, "Milim", 59),
-    ScoreData(4, "Veldora Tempest", 97),
-    ScoreData(5, "Isset Hyoudo", 41),
-    ScoreData(6, "Tanya", 52),
-    ScoreData(7, "Naruhodou Ryuichi", 72),
-  ];
-
   void _incrementCounter() {
     setState(() {});
   }
@@ -58,14 +49,14 @@ class _HomePageState extends State<HomePage> {
           itemCount: scoreList.length,
           itemBuilder: (BuildContext context, int i) {
             return ScoreView(
-              wholeList: scoreList,
               idx: i,
             );
           },
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () =>
+            Navigator.of(context).pushNamed(AppRoutes.editScorePage),
         tooltip: 'Add New Record',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

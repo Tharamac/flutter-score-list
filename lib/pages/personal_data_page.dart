@@ -3,20 +3,18 @@ import 'package:flutter/material.dart';
 import '../score.dart';
 
 class PersonalDataParameter {
-  final ScoreData selectedData;
-  final List<ScoreData> dataList;
+  final int selectedDataIdx;
   List<ScoreData> dataListSorted;
-  PersonalDataParameter(this.selectedData, this.dataList) {
-    dataListSorted = List.from(dataList);
+  PersonalDataParameter(this.selectedDataIdx) {
+    dataListSorted = List.from(scoreList);
     dataListSorted.sort((a, b) => a.score.compareTo(b.score));
   }
 }
 // send list to another page
 
 class PersonalDataPage extends StatefulWidget {
-  final ScoreData selectedData;
-  final List<ScoreData> dataList;
-  PersonalDataPage(this.selectedData, this.dataList);
+  final int selectedDataIdx;
+  PersonalDataPage(this.selectedDataIdx);
 
   @override
   _PersonalDataPageState createState() => _PersonalDataPageState();
@@ -37,18 +35,18 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text(
-                    "${widget.selectedData.id}\t",
+                    "${scoreList[widget.selectedDataIdx].id}\t",
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
                   ),
                   Expanded(
                     child: Text(
-                      widget.selectedData.name,
+                      scoreList[widget.selectedDataIdx].name,
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
                     ),
                   ),
                   Text(
-                    '${widget.selectedData.score}',
+                    '${scoreList[widget.selectedDataIdx].score}',
                     style: TextStyle(fontSize: 60, fontWeight: FontWeight.w700),
                   )
                 ],

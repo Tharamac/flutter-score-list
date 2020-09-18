@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:score_list/config/routes.dart';
 import 'pages/edit_score_page.dart';
-import 'pages/edit_score_page.dart';
-import 'pages/edit_score_page.dart';
 import 'pages/home_page.dart';
 import 'pages/personal_data_page.dart';
 
@@ -36,7 +34,7 @@ Route _regRoutesWithParams(RouteSettings settings) {
   if (settings.name == AppRoutes.personalDataPage) {
     return MaterialPageRoute(builder: (context) {
       PersonalDataParameter param = settings.arguments;
-      return PersonalDataPage(param.selectedData, param.dataList);
+      return PersonalDataPage(param.selectedDataIdx);
     });
   }
 }
