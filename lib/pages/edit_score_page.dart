@@ -3,9 +3,14 @@ import 'package:score_list/score.dart';
 
 import '../widget/score_view.dart';
 
-class EditScoreParameter {}
+class EditScoreParameter {
+  final ScoreData selectedData;
+  EditScoreParameter([this.selectedData]);
+}
 
 class EditScorePage extends StatefulWidget {
+  final ScoreData selectedData;
+  EditScorePage([this.selectedData]);
   @override
   _EditScorePageState createState() => _EditScorePageState();
 }
@@ -13,6 +18,7 @@ class EditScorePage extends StatefulWidget {
 class _EditScorePageState extends State<EditScorePage> {
   TextEditingController _controller;
   bool _validate = false;
+  bool _isAddNew = true;
   var numpadItem = [
     "1",
     "2",
@@ -31,7 +37,14 @@ class _EditScorePageState extends State<EditScorePage> {
   void initState() {
     super.initState();
     _controller = TextEditingController();
-    _scoreInput = 0;
+    _isAddNew = (widget.selectedData == null) ? true : false;
+    if (_isAddNew) {
+      _scoreInput = 0;
+      _controller.text = "";
+    } else {
+      _scoreInput = widget.selectedData.score;
+      _controller.text = widget.selectedData.name;
+    }
   }
 
   void dispose() {
@@ -58,12 +71,19 @@ class _EditScorePageState extends State<EditScorePage> {
   }
 
   void acceptScore() {
+    print(_isAddNew);
     int score = _scoreInput;
     String name = _controller.text;
-    int idx = scoreList.length + 1;
-    print("55");
-    var newScore = ScoreData(idx, name, score);
-    scoreList.add(newScore);
+
+    if (_isAddNew) {
+      int idx = scoreList.length + 1;
+      var newScore = ScoreData(idx, name, score);
+      scoreList.add(newScore);
+    } else {
+      int idx = scoreList.indexOf(widget.selectedData);
+      scoreList[idx].name = name;
+      scoreList[idx].score = score;
+    }
     Navigator.pop(context, true);
   }
 

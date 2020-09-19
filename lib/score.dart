@@ -1,7 +1,7 @@
 class ScoreData {
   final int id;
-  final String name;
-  final int score;
+  String name;
+  int score;
   ScoreData(this.id, this.name, this.score);
 }
 

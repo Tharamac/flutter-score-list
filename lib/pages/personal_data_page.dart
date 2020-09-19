@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:score_list/config/routes.dart';
 
 import '../score.dart';
 
 class PersonalDataParameter {
   final int selectedDataIdx;
-  List<ScoreData> dataListSorted;
   PersonalDataParameter(this.selectedDataIdx);
 }
 // send list to another page
 
 class PersonalDataPage extends StatefulWidget {
   final int selectedDataIdx;
-  List<ScoreData> dataListSorted;
+  final List<ScoreData> dataListSorted = List.from(scoreList);
   PersonalDataPage(this.selectedDataIdx) {
-    dataListSorted = List.from(scoreList);
     dataListSorted.sort((a, b) => a.score.compareTo(b.score));
   }
 
@@ -46,33 +45,39 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
     });
   }
 
-  void _showToast(BuildContext context) {
-    final scaffold = Scaffold.of(context);
-    scaffold.showSnackBar(
-      SnackBar(
-        content: const Text('Already Top!'),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            PersonCard(scoreList[widget.selectedDataIdx]),
-            Text(
-              "Next Person: " + (_isAlreadyTop ? "(Already Top)" : ""),
-              style: TextStyle(fontSize: 25),
-            ),
-            GestureDetector(
-              child: PersonCard(widget.dataListSorted[_nextPersonDataIdx]),
-              onTap: _getNextPerson,
-            )
-          ],
-        ));
+      appBar: AppBar(),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          PersonCard(scoreList[widget.selectedDataIdx]),
+          Text(
+            "Next Person: " + (_isAlreadyTop ? "(Highest)" : ""),
+            style: TextStyle(fontSize: 25),
+          ),
+          GestureDetector(
+            child: PersonCard(widget.dataListSorted[_nextPersonDataIdx]),
+            onTap: _getNextPerson,
+          )
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.of(context)
+            .pushNamed(AppRoutes.editScorePage,
+                arguments: scoreList[widget.selectedDataIdx])
+            .then((flag) {
+          if (flag) {
+            setState(() {});
+            Navigator.pop(context, true);
+          }
+          ;
+        }),
+        tooltip: "Edit Data",
+        child: Icon(Icons.edit),
+      ),
+    );
   }
 }
 
