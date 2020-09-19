@@ -91,47 +91,61 @@ class _EditScorePageState extends State<EditScorePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Edit name"),
+          title: Text(_isAddNew ? "Add new record" : "Edit data"),
         ),
         body: SafeArea(
-            child: Padding(
-          padding: EdgeInsets.all(10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  ),
                   Text(
-                    "Name\t : \t",
+                    "Name: ",
                     style: TextStyle(fontSize: 20),
                   ),
                   Expanded(
                       child: TextField(
                           controller: _controller,
-                          maxLength: 15,
-                          style: TextStyle(fontSize: 20),
+                          maxLength: 16,
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.w700),
                           decoration: InputDecoration(
+                            border: OutlineInputBorder(),
                             labelText: 'Enter Your Name',
                             errorText:
                                 _validate ? "Value cannot be empty." : null,
-                          )))
+                          ))),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                  ),
                 ],
               ),
               Container(
                 width: double.infinity,
-                height: 60,
                 alignment: Alignment.center,
-                color: Color(0xFF17b2d1),
+                color: Color(0xFF00ffbf),
+                padding: EdgeInsets.fromLTRB(0, 25, 0, 10),
                 margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: Text('$_scoreInput', style: TextStyle(fontSize: 45)),
+                child: Text('$_scoreInput',
+                    style: TextStyle(
+                        fontSize: 60,
+                        color: Color(0xFF04664d),
+                        fontWeight: FontWeight.w700)),
               ),
               Expanded(
                   flex: 1,
                   child: GridView.count(
                     physics: NeverScrollableScrollPhysics(),
                     crossAxisCount: 3,
-                    crossAxisSpacing: 35,
+                    crossAxisSpacing: 55,
                     mainAxisSpacing: 5,
                     shrinkWrap: true,
                     padding: EdgeInsets.all(15),
@@ -152,17 +166,22 @@ class _EditScorePageState extends State<EditScorePage> {
                                   _putNumber(int.parse(item));
                               },
                               padding: EdgeInsets.all(0),
-                              color: const Color(0xFF17bed1),
-                              textColor: const Color(0xFF000000),
+                              textColor: const Color(0xFF00ffbe),
                               child: Text(
                                 item,
-                                style: TextStyle(fontSize: 35),
+                                style: (item == "OK" || item == "CLR")
+                                    ? TextStyle(
+                                        fontSize: 35,
+                                        fontWeight: FontWeight.w700)
+                                    : TextStyle(
+                                        fontSize: 60,
+                                        fontWeight: FontWeight.w700),
                               ),
                             ))
                         .toList(),
                   )),
             ],
           ),
-        )));
+        ));
   }
 }

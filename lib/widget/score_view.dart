@@ -20,6 +20,7 @@ class _ScoreViewState extends State<ScoreView> {
         padding: EdgeInsets.all(20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               "${scoreList[widget.idx].id}",

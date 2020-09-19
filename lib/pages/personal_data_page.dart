@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:score_list/config/routes.dart';
+import 'package:score_list/widget/person_card.dart';
+import 'package:score_list/widget/person_stat.dart';
 
 import '../score.dart';
 
@@ -56,16 +58,30 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
         ),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          PersonStat(scoreList[widget.selectedDataIdx],
-              widget.dataListSorted.indexOf(scoreList[widget.selectedDataIdx])),
-          Text(
-            "Next Person: " + (_isAlreadyTop ? "(Highest)" : ""),
-            style: TextStyle(fontSize: 25),
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 25),
+          ),
+          PersonStat(
+              scoreList[widget.selectedDataIdx],
+              widget.dataListSorted.length -
+                  widget.dataListSorted
+                      .indexOf(scoreList[widget.selectedDataIdx])),
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 25),
+          ),
+          FlatButton(
+            child: Text(
+              "Next Person >>",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+            ),
+            onPressed: _getNextPerson,
           ),
           GestureDetector(
-            child: PersonCard(widget.dataListSorted[_nextPersonDataIdx], 0),
+            child: PersonCard(widget.dataListSorted[_nextPersonDataIdx],
+                widget.dataListSorted.length - _nextPersonDataIdx),
             onTap: _getNextPerson,
           )
         ],
@@ -83,152 +99,6 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
         }),
         tooltip: "Edit Data",
         child: Icon(Icons.edit),
-      ),
-    );
-  }
-}
-
-class PersonCard extends StatelessWidget {
-  final ScoreData data;
-  final int ranking;
-  PersonCard(this.data, this.ranking);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xFF65990D),
-      padding: EdgeInsets.all(20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Text(
-            "${data.id}",
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
-          ),
-          Expanded(
-            child: Text(
-              data.name,
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
-            ),
-          ),
-          Text(
-            '${data.score}',
-            style: TextStyle(fontSize: 60, fontWeight: FontWeight.w700),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class PersonStat extends StatelessWidget {
-  final ScoreData data;
-  final int ranking;
-  PersonStat(this.data, this.ranking);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xFF05ffde),
-      padding: EdgeInsets.fromLTRB(45, 30, 45, 30),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "${data.id}",
-                style: TextStyle(
-                  color: Color(0xFF36756d),
-                  fontSize: 40,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-              ),
-              Expanded(
-                  child: Text(
-                data.name,
-                style: TextStyle(
-                    color: Color(0xFF094d44),
-                    fontSize: 40,
-                    fontWeight: FontWeight.w600),
-              )),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Container(
-                  color: Colors.black38,
-                  width: 150,
-                  height: 150,
-                  alignment: Alignment.center,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Ranking",
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                      ),
-                      Text(
-                        '$ranking',
-                        style: TextStyle(
-                          fontSize: 75,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  )),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
-              ),
-              Container(
-                  color: Colors.black38,
-                  width: 150,
-                  height: 150,
-                  alignment: Alignment.center,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Score",
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                      ),
-                      Text(
-                        '${data.score}',
-                        style: TextStyle(
-                          fontSize: 75,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  )),
-            ],
-          ),
-        ],
       ),
     );
   }
