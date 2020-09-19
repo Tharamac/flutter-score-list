@@ -23,6 +23,7 @@ class PersonalDataPage extends StatefulWidget {
 class _PersonalDataPageState extends State<PersonalDataPage> {
   int _nextPersonDataIdx;
   bool _isAlreadyTop = false;
+
   @override
   void initState() {
     _nextPersonDataIdx =
@@ -48,17 +49,23 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+          scoreList[widget.selectedDataIdx].name,
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+        ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          PersonCard(scoreList[widget.selectedDataIdx]),
+          PersonStat(scoreList[widget.selectedDataIdx],
+              widget.dataListSorted.indexOf(scoreList[widget.selectedDataIdx])),
           Text(
             "Next Person: " + (_isAlreadyTop ? "(Highest)" : ""),
             style: TextStyle(fontSize: 25),
           ),
           GestureDetector(
-            child: PersonCard(widget.dataListSorted[_nextPersonDataIdx]),
+            child: PersonCard(widget.dataListSorted[_nextPersonDataIdx], 0),
             onTap: _getNextPerson,
           )
         ],
@@ -83,7 +90,8 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
 
 class PersonCard extends StatelessWidget {
   final ScoreData data;
-  PersonCard(this.data);
+  final int ranking;
+  PersonCard(this.data, this.ranking);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -109,6 +117,117 @@ class PersonCard extends StatelessWidget {
             '${data.score}',
             style: TextStyle(fontSize: 60, fontWeight: FontWeight.w700),
           )
+        ],
+      ),
+    );
+  }
+}
+
+class PersonStat extends StatelessWidget {
+  final ScoreData data;
+  final int ranking;
+  PersonStat(this.data, this.ranking);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color(0xFF05ffde),
+      padding: EdgeInsets.fromLTRB(45, 30, 45, 30),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "${data.id}",
+                style: TextStyle(
+                  color: Color(0xFF36756d),
+                  fontSize: 40,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+              ),
+              Expanded(
+                  child: Text(
+                data.name,
+                style: TextStyle(
+                    color: Color(0xFF094d44),
+                    fontSize: 40,
+                    fontWeight: FontWeight.w600),
+              )),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Container(
+                  color: Colors.black38,
+                  width: 150,
+                  height: 150,
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "Ranking",
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                      ),
+                      Text(
+                        '$ranking',
+                        style: TextStyle(
+                          fontSize: 75,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  )),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+              ),
+              Container(
+                  color: Colors.black38,
+                  width: 150,
+                  height: 150,
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "Score",
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                      ),
+                      Text(
+                        '${data.score}',
+                        style: TextStyle(
+                          fontSize: 75,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  )),
+            ],
+          ),
         ],
       ),
     );

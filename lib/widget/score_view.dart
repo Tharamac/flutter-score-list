@@ -24,9 +24,9 @@ class _ScoreViewState extends State<ScoreView> {
             Text(
               "${scoreList[widget.idx].id}",
               style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'KumbhSans'),
+                fontSize: 30,
+                fontWeight: FontWeight.w700,
+              ),
             ),
             Padding(
               padding: EdgeInsets.fromLTRB(15, 0, 0, 0),

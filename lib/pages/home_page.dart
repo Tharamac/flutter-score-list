@@ -16,14 +16,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF34ebb7),
+        centerTitle: true,
         title: Text(
-          "Jura Tempest Hall of Fame",
+          "Jura Tempest: Hall of Fame",
           style: TextStyle(
-              color: Colors.black,
-              fontSize: 25,
-              fontWeight: FontWeight.w700,
-              fontFamily: 'KumbhSans'),
+            color: Colors.black,
+            fontSize: 30,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
       body: Center(
