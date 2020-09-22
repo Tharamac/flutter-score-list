@@ -95,7 +95,6 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
             setState(() {});
             Navigator.pop(context, true);
           }
-          ;
         }),
         tooltip: "Edit Data",
         child: Icon(Icons.edit),

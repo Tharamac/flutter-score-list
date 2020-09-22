@@ -46,69 +46,71 @@ class PersonStat extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Container(
-                  color: Colors.black38,
-                  width: 150,
-                  height: 150,
-                  alignment: Alignment.center,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Ranking",
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Color(0xFF00ffdc),
-                          fontWeight: FontWeight.w700,
+              Flexible(
+                child: Container(
+                    color: Colors.black38,
+                    height: 150,
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "Ranking",
+                          style: TextStyle(
+                            fontSize: 30,
+                            color: Color(0xFF00ffdc),
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                      ),
-                      Text(
-                        '$ranking',
-                        style: TextStyle(
-                          fontSize: 75,
-                          color: Color(0xFF00ffdc),
-                          fontWeight: FontWeight.w700,
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
                         ),
-                      ),
-                    ],
-                  )),
-              Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                        Text(
+                          '$ranking',
+                          style: TextStyle(
+                            fontSize: 75,
+                            color: Color(0xFF00ffdc),
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    )),
               ),
-              Container(
-                  color: Colors.black38,
-                  width: 150,
-                  height: 150,
-                  alignment: Alignment.center,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Score",
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Color(0xFF00ffdc),
-                          fontWeight: FontWeight.w700,
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+              ),
+              Flexible(
+                child: Container(
+                    color: Colors.black38,
+                    height: 150,
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "Score",
+                          style: TextStyle(
+                            fontSize: 30,
+                            color: Color(0xFF00ffdc),
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                      ),
-                      Text(
-                        '${data.score}',
-                        style: TextStyle(
-                          color: Color(0xFF00ffdc),
-                          fontSize: 75,
-                          fontWeight: FontWeight.w700,
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
                         ),
-                      ),
-                    ],
-                  )),
+                        Text(
+                          '${data.score}',
+                          style: TextStyle(
+                            color: Color(0xFF00ffdc),
+                            fontSize: 75,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    )),
+              )
             ],
           ),
         ],
